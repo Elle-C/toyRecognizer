@@ -22,13 +22,13 @@ function preload(){
 
 function setup() 
 {
-	createCanvas(windowWidth, 3*windowWidth/4);
+	createCanvas(windowWidth, windowHeight);
 	video = createCapture(VIDEO);
-	video.size(windowWidth, 3*windowWidth/4);
+	video.size(windowWidth,3*windowWidth/4);
 	video.hide();
 	textSize(32);
 	textAlign(CENTER,CENTER);
-	fill(255);
+	//fill(255);
 
 	classifyVideo()
 }
@@ -42,17 +42,20 @@ function draw()
 	translate(video.width, 0);
   	scale(-1, 1);
 	video.loadPixels();
-	loadFilter(75, square);
+
+
+	loadFilter(50, square);
 
 	if (label == "Unicorn"){
-		loadFilter(50, circle, rainbow)
+		loadFilter(25, circle, rainbow)
+		text("UNICORN!!!, width/2, height-32")
 	}
 
 	if (label == "Shaker"){
 	}
 
 	if (label == "Digger"){
-		loadFilter(50, line, primary)
+		loadFilter(25, line, primary)
 	}
 }
 
@@ -82,13 +85,14 @@ for (x = 0; x < video.width; x += stepSize) {
     blueVal = video.pixels[index + 2];
     alphaVal = video.pixels[index + 3];
 
+	strokeWeight(10);
+    stroke(255);
+
 	if (filter == rainbow) {
 		rainbow();}
 	if (filter == primary) {
 		primary();}
 
-	strokeWeight(20);
-    stroke(redVal, greenVal, blueVal);
     //noStroke();
     //noFill()
     fill(redVal, greenVal, blueVal, alphaVal);
@@ -110,16 +114,20 @@ for (x = 0; x < video.width; x += stepSize) {
         redVal = 0;  
 		greenVal = 0;
 		blueVal = 255;
+		stroke(redVal, greenVal, blueVal)
+	
         }
 	if(redVal > blueVal && redVal > greenVal) {
         redVal = 255;  
 		greenVal = 0;
 		blueVal = 0;
+		stroke(redVal, greenVal, blueVal)
         }
 	if(greenVal > blueVal && greenVal > redVal) {
         redVal = 0;  
 		greenVal = 255;
 		blueVal = 0;
+		stroke(redVal, greenVal, blueVal)
         }
   }
 
